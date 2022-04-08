@@ -3,32 +3,32 @@ import Navbar from './components/navbar/Navbar';
 import Nav from './components/Nav';
 import {BrowserRouter,  Routes, Route} from 'react-router-dom';
 import Home from './components/Home/Home'; 
-import About from './components/About/About';
+import Complete from './components/complete/Complete';
+import Incompleted from './components/incomplete/Incompleted';
 
 class App extends Component {
 
     state = {
-        url : [], 
-        completed : ""
+        todosArray : [], 
+        completed : Boolean
     }
-
     componentDidMount() {
         fetch('https://jsonplaceholder.typicode.com/todos')
         .then(resolve => {
             return resolve.json();
-        }).then(data =>{
-            this.setState({url : data})
+        }).then(data => {
+            this.setState({todosArray : data})
         })
     }
 
     deleteTodo =(index) =>{
-        const copyData = [...this.state.url];
+        const copyData = [...this.state.todosArray];
         copyData.splice(index,1);
-        this.setState({url : copyData});
+        this.setState({todosArray : copyData});
     }
    
     markTodo = (index,id) =>{
-       const complete = [...this.state.url];
+       const complete = [...this.state.todosArray];
        complete[index].completed = !complete[index].completed;
         this.setState({completed : complete});
     }
@@ -39,15 +39,15 @@ class App extends Component {
           
             <BrowserRouter> 
             <Navbar />
-          <Nav todos={this.state.url} deleteTodo={this.deleteTodo} markTodo={this.markTodo}/>
-
-            {/* mora da imame wraper Routes okolu Route */}
+                   
             <Routes>
 
-            <Route path="/" exact element={<Home todos={this.state.url}/>} />
-            
-            {/* component vo novata verzija e zamenet so element */}
-            <Route path="/about" exact element={<About/>} />
+            { (this.state != undefined) &&
+            <Route path="/" exact element={<Home todosArray={this.state.todosArray} deleteTodo={this.deleteTodo} markTodo={this.markTodo}/>} />
+    }
+          
+            <Route path="/complete" exact element={<Complete  todosArray={this.state.todosArray} deleteTodo={this.deleteTodo} markTodo={this.markTodo} />} />
+            <Route path="/incompleted" exact element={<Incompleted  todosArray={this.state.todosArray} deleteTodo={this.deleteTodo} markTodo={this.markTodo} />} />
           
             </Routes>
             </BrowserRouter>

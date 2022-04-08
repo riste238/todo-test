@@ -2,16 +2,18 @@ import React from 'react';
 import Todo from './Todo';
 import './nav.css';
 
-const Nav = ({ toDo,deleteTodo,markTodo }) => {
+const Completed = ({ toDo,deleteTodo,markTodo }) => {
 
     const data = toDo.map((todos,index)=> {
-        
-        return (      
+        if(todos.completed == true){
+        return (
+       
             <div className="col-5 offset-1 m-3" style={{float: 'left'}}>
             <Todo toDo={todos} index={index} deleteTodo={deleteTodo} id={todos.id} markTodo={markTodo}/>
             </div>
    
         )
+        }
     })
 
     return (
@@ -27,4 +29,4 @@ const Nav = ({ toDo,deleteTodo,markTodo }) => {
         </>
     )
 }
-export default Nav;
+export default Completed;

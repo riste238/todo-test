@@ -6,14 +6,18 @@ const Navbar = ()=>{
 
     return(
         <nav className="navbar navbar-expand-lg navbar-light bg-light">
-            <a href="/" className="navbar-brand">React Router</a>
+         
             <ul className="navbar-nav">
                 <li className="navbar-item">
-                    <NavLink to="/" exact="true"  className="nav-link">Home</NavLink>
+                    <NavLink to="/" exact="true"  className="nav-link">All Todo</NavLink>
                 </li>
 
                 <li className="navbar-item">
-                    <NavLink to="/about"  className="nav-link">About</NavLink>
+                    <NavLink to="/complete"  className="nav-link">Completed</NavLink>
+                </li>
+
+                <li className="navbar-item">
+                    <NavLink to="/incompleted"  className="nav-link">Incompleted</NavLink>
                 </li>
             </ul>
         </nav>
